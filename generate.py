@@ -17,12 +17,13 @@ class WebofTrustVisualization():
         elif not os.path.exists(self.gpg2_dir) and pubkey:
             print ("Initializing with key {}...".format(pubkey))
             os.mkdir(self.gpg2_dir, mode=0o700)
-            self.recv_key(pubkey)
+            self.recv_keys(pubkey)
         else:
             raise InvalidArgumentException
 
-    def recv_key(self, pubkey):
+    def recv_keys(self, *pubkeys):
         cmd = list(self.gpg2_commandline)
         cmd.append("--recv-keys")
-        cmd.append(pubkey)
+        for pubkey in pubkeys:
+            cmd.append(pubkey)
         Popen(cmd)
