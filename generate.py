@@ -26,4 +26,4 @@ class WebofTrustVisualization():
         cmd.append("--recv-keys")
         for pubkey in pubkeys:
             cmd.append(pubkey)
-        Popen(cmd)
+        Popen(cmd).wait()
