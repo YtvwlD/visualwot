@@ -31,6 +31,13 @@ class WebofTrustVisualization():
             cmd.append(pubkey)
         Popen(cmd).wait()
 
+    def gendot(self):
+        cmd = list(self.gpg2_commandline)
+        cmd.append("--list-sigs")
+        with open(os.path.join(self.folder, "{}.dot".format(self.number)), "w") as dot:
+            with Popen(cmd, stdout=PIPE) as gpg2:
+                Popen(["sig2dot", "-a"], stdin=gpg2.stdout, stdout=dot).wait()
+    
     def getNumber(self):
         with open(os.path.join(self.folder, "number"), "r") as number:
             self.number = int(number.read().strip())
