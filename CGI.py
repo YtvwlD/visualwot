@@ -24,8 +24,9 @@ def runSentry(environ, start_response):
 		html = get_html("500")
 		try:
 			client.captureException()
-		#	html = html.replace("<!-- log >", "").replace("< /log -->", "")
+			#html = html.replace("<!-- log >", "").replace("< /log -->", "")
 		except: #Well, and even if we can't log the exception, we still need an error page.
-		#	html = html.replace("<!-- nolog >", "").replace("< /nolog -->", "")
+			pass
+			#html = html.replace("<!-- nolog >", "").replace("< /nolog -->", "")
 		response = Response(html, 500, mimetype="text/html")
 		return response(environ, start_response)
