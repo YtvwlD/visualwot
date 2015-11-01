@@ -18,7 +18,6 @@ def run():
 
 
 def runSentry(environ, start_response):
-	lang = choose_lang(Request(environ))
 	try:
 		return (app(environ, start_response))
 	except: #This is really neeed. If _anything_ goes wrong, display an error page.
