@@ -14,10 +14,13 @@ class WebofTrustVisualization():
             os.mkdir(self.folder)
         if os.path.exists(os.path.join(self.gpg2_dir, "pubring.gpg")) and not pubkey:
             print ("Continuing...")
+            self.getNumber()
         elif not os.path.exists(self.gpg2_dir) and pubkey:
             print ("Initializing with key {}...".format(pubkey))
             os.mkdir(self.gpg2_dir, mode=0o700)
             self.recv_keys(pubkey)
+            self.number = 0
+            self.saveNumber()
         else:
             raise InvalidArgumentException
 
@@ -27,3 +30,11 @@ class WebofTrustVisualization():
         for pubkey in pubkeys:
             cmd.append(pubkey)
         Popen(cmd).wait()
+
+    def getNumber(self):
+        with open(os.path.join(self.folder, "number"), "r") as number:
+            self.number = int(number.read().strip())
+
+    def saveNumber(self):
+        with open(os.path.join(self.folder, "number"), "w") as number:
+            number.write(str(self.number))
