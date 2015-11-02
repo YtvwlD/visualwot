@@ -38,6 +38,19 @@ class WebofTrustVisualization():
 			with Popen(cmd, stdout=PIPE) as gpg2:
 				Popen(["sig2dot", "-a"], stdin=gpg2.stdout, stdout=dot).wait()
 
+	def nextRound(self):
+		cmd = list(self.gpg2_commandline)
+		cmd.append("--list-sigs")
+		sigs_missing = []
+		with Popen(cmd, stdout=PIPE, env={"LANG": "C"}) as gpg2:
+			for sig in gpg2.stdout.read().decode().splitlines():
+				if "[User ID not found]" in sig:
+					for elem in sig.split():
+						if len(elem) == 8:
+							sigs_missing.append(elem)
+		print (sigs_missing)
+		#TODO
+
 	def getNumber(self):
 		with open(os.path.join(self.folder, "number"), "r") as number:
 			self.number = int(number.read().strip())
