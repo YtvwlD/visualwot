@@ -48,8 +48,9 @@ class WebofTrustVisualization():
 					for elem in sig.split():
 						if len(elem) == 8:
 							sigs_missing.append(elem)
-		print (sigs_missing)
-		#TODO
+		self.number += 1 #better safe than sorry
+		self.saveNumber()
+		self.recv_keys(*sigs_missing)
 
 	def getNumber(self):
 		with open(os.path.join(self.folder, "number"), "r") as number:
