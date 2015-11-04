@@ -47,7 +47,8 @@ class WebofTrustVisualization():
 				if "[User ID not found]" in sig:
 					for elem in sig.split():
 						if len(elem) == 8:
-							sigs_missing.append(elem)
+							if elem not in sigs_missing: #we need each key only once
+								sigs_missing.append(elem)
 		self.number += 1 #better safe than sorry
 		self.saveNumber()
 		self.recv_keys(*sigs_missing)
