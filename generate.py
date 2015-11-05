@@ -42,7 +42,7 @@ class WebofTrustVisualization():
 		cmd = list(self.gpg2_commandline)
 		cmd.append("--list-sigs")
 		sigs_missing = []
-		with Popen(cmd, stdout=PIPE, env={"LANG": "C"}) as gpg2:
+		with Popen(cmd, stdout=PIPE, env={"LANG": "C.UTF-8"}) as gpg2:
 			for sig in gpg2.stdout.read().decode().splitlines():
 				if "[User ID not found]" in sig:
 					for elem in sig.split():
