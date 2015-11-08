@@ -43,12 +43,12 @@ class WebofTrustVisualization():
 		cmd.append("--list-sigs")
 		sigs_missing = []
 		with Popen(cmd, stdout=PIPE, env={"LANG": "C.UTF-8"}) as gpg2:
-			for sig in gpg2.stdout.read().decode().splitlines():
-				if "[User ID not found]" in sig:
+			for sig in gpg2.stdout.read().splitlines():
+				if b"[User ID not found]" in sig:
 					for elem in sig.split():
 						if len(elem) == 8:
-							if elem not in sigs_missing: #we need each key only once
-								sigs_missing.append(elem)
+							if elem.decode() not in sigs_missing: #we need each key only once
+								sigs_missing.append(elem.decode())
 		self.number += 1 #better safe than sorry
 		self.saveNumber()
 		self.recv_keys(*sigs_missing)
