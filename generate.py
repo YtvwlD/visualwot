@@ -38,6 +38,10 @@ class WebofTrustVisualization():
 			with Popen(cmd, stdout=PIPE) as gpg2:
 				Popen(["sig2dot", "-a"], stdin=gpg2.stdout, stdout=dot).wait()
 
+	def draw(self, format="ps"):
+		with open("{}.{}".format(os.path.join(self.folder, str(self.number)), format), "w") as drawing:
+			Popen(["dot", "-T{}".format(format), "{}.dot".format(os.path.join(self.folder, str(self.number)))], stdout=drawing).wait()
+
 	def nextRound(self):
 		cmd = list(self.gpg2_commandline)
 		cmd.append("--list-sigs")
