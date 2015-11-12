@@ -7,13 +7,14 @@ parser = ArgumentParser()
 
 parser.add_argument("folder")
 parser.add_argument("--pubkey")
+parser.add_argument("--format", default="ps")
 
 args = parser.parse_args()
 
 if args.pubkey:
 	w = WebofTrustVisualization(args.folder, pubkey=args.pubkey)
-	w.gendot()
 else:
 	w = WebofTrustVisualization(args.folder)
 	w.nextRound()
-	w.gendot()
+w.gendot()
+w.draw(format=args.format)
