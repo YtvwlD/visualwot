@@ -1,4 +1,7 @@
 # visualwot
+
+[![Code Health](https://landscape.io/github/YtvwlD/visualwot/master/landscape.svg?style=flat)](https://landscape.io/github/YtvwlD/visualwot/master)
+
 Visualize it!
 
 Dependencies:
